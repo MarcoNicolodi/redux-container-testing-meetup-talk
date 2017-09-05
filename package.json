@@ -4,7 +4,7 @@
   "description": "starting boilerplate configured with react, babel and webpack2",
   "main": "index.js",
   "scripts": {
-    "test": "",
+    "test": "jest",
     "start": "webpack-dev-server"
   },
   "repository": {
@@ -33,9 +33,13 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
+    "babel-jest": "^20.0.3",
     "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
-    "html-webpack-plugin": "^2.30.1"
+    "enzyme": "^2.9.1",
+    "html-webpack-plugin": "^2.30.1",
+    "jest": "^20.0.4",
+    "react-test-renderer": "^15.6.1"
   }
 }
