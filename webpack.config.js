@@ -13,11 +13,16 @@ module.exports = {
     path: path.resolve('dist'),
     filename: 'bundle.js'
   },
+  
   module: {
     loaders: [
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
       { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ }
     ]
   },
-  plugins: [HtmlWebpackPluginConfig]
+  plugins: [HtmlWebpackPluginConfig],
+    resolve: {
+        extensions: ['.js', '.jsx'],
+    },
+
 }
