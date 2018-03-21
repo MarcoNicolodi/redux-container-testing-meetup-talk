@@ -1,8 +1,14 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import createStore from './lib/createStore';
+import List from './features/list';
+
+const store = createStore();
 
 const App = () => (
-  <div style={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
-    <h1>Hello World!</h1>
-  </div>);
+  <Provider store={store}>
+    <List />
+  </Provider>
+);
 
 export default App;
