@@ -1,0 +1,63 @@
+:local(.pagination) {
+    list-style-type: none;
+    padding: 0;
+    color: #777777;
+    float: right;
+
+    .rc-pagination-disabled:focus{
+        outline: none;
+    }
+    .btn-pagination {
+        width: 100%;
+        border-color: #d4d4d4;
+        background-color: #F7F7F7;
+        background: linear-gradient(to top, #EAEAEA 0%,#F7F7F7 100%);
+    }
+    .btn-pagination:hover:not(.disabled) {
+        background: none;
+        background-color: #fff;
+    }
+    .btn-pagination:not(.disabled) {
+        cursor: pointer;
+    }
+    .disabled .fa {
+        color: #AAA;
+    }
+    .fa {
+        color: #1fa5d6;
+    }
+    .text {
+        font-weight: bold;
+    }
+    input {
+        padding-left: 0;
+        padding-right: 0;
+        text-align: center;
+        padding: .5rem .25rem;
+        font-size: 1rem;
+        line-height: 1.25;
+        color: #495057;
+        border: 1px solid rgba(0,0,0,.15);
+        border-radius: .25rem;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+    .rc-pagination-slash {
+        font-size: 0.8rem;
+        font-weight: 700;
+        margin-left: .5rem;
+        margin-right: .5rem;
+    }
+    input, .rc-pagination-prev, .rc-pagination-next {
+        width: 38px;
+    }
+    .rc-pagination-prev { 
+        margin-right: 8px;
+    }
+    .rc-pagination-next { 
+        margin-left: 8px;
+    }
+    .rc-pagination-simple-pager, .rc-pagination-options-quick-jumper{
+        font-size: 1rem;
+        font-family: inherit;
+    }
+}

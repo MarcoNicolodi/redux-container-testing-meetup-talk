@@ -1,12 +1,10 @@
 import { select, put, call, takeLatest } from 'redux-saga/effects';
-import { setIsListing, setData, FETCH_ASYNC } from './ducks';
+import { setIsListing, currentPageSelector, setData, FETCH_ASYNC } from './ducks';
 import fetchDocuments from '../api/apiClient';
 
 function* list() {
-  // const page = yield select(getFilters);
-  // const pageSelected = yield select(selectors.getPageSelected);
-  const pageSelected = 1;
-  const params = { page: pageSelected };
+  const page = yield select(currentPageSelector);
+  const params = { page };
   yield put(setIsListing(true));
   try {
     const apiResponse = yield call(fetchDocuments, params);
