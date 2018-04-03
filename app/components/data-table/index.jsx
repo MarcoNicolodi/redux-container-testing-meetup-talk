@@ -14,6 +14,8 @@ export default class DataTable extends React.PureComponent {
   }
 }
 
+DataTable.displayName = 'DataTable';
+
 // DataTable.propTypes = {
 //     data: PropTypes.arrayOf(PropTypes.shape({
 //         onClick: PropTypes.func,

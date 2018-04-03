@@ -2,8 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Container, Row } from 'reactstrap';
 import Pagination from '../../components/pagination';
+import Loader from '../../components/loader';
 import { fetchAsync, setPage, documentSelector, isLoadingSelector, currentPageSelector } from './state/ducks';
 import DataTable from '../../components/data-table';
+import ConditionalRender from '../../components/conditional-render';
 
 export class List extends React.Component {
   componentDidMount() {
@@ -23,9 +25,11 @@ export class List extends React.Component {
           <h1> Document list </h1>
         </Row>
         <Row>
-          {
-            documents ? (<DataTable data={documents} />) : (<span> is loading </span>)
-        }
+          <ConditionalRender
+            render={() => <DataTable data={documents} />}
+            fallback={() => <Loader />}
+            condition={documents !== null}
+          />
         </Row>
         <Row>
           <Pagination onChange={page => this.handlePageChange(page)} className="pagination" current={this.props.currentPage} total={10} simple pageSize={1} />
