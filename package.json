@@ -13,7 +13,10 @@
   "jest": {
     "setupFiles": [
       "./jestsetup.js"
-    ]
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+    }
   },
   "repository": {
     "type": "git",
@@ -33,9 +36,25 @@
   },
   "homepage": "https://github.com/marconicolodi/react-webpack-babel#readme",
   "dependencies": {
+    "axios": "^0.18.0",
+    "axios-mock-adapter": "^1.14.1",
+    "babel-polyfill": "^6.26.0",
+    "bootstrap": "^4.0.0",
+    "classnames": "^2.2.5",
+    "css-loader": "^0.28.11",
+    "nock": "^9.2.3",
     "raf": "^3.4.0",
+    "rc-pagination": "^1.16.1",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-transition-group": "^2.2.1",
+    "reactstrap": "^4.8.0",
+    "redux": "^3.7.2",
+    "redux-saga": "^0.16.0",
+    "style-loader": "^0.20.3"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
