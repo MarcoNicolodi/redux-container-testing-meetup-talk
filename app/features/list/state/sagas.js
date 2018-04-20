@@ -1,6 +1,12 @@
-import { select, put, call, takeLatest } from 'redux-saga/effects';
-import { setIsListing, currentPageSelector, setData, FETCH_ASYNC } from './ducks';
-import fetchDocuments from '../api/apiClient';
+import { select, put, call, takeLatest } from "redux-saga/effects";
+import {
+  setIsListing,
+  currentPageSelector,
+  setData,
+  setError,
+  FETCH_ASYNC
+} from "./ducks";
+import fetchDocuments from "../api/apiClient";
 
 function* list() {
   const page = yield select(currentPageSelector);
@@ -11,6 +17,9 @@ function* list() {
     yield put(setData(apiResponse));
   } catch (error) {
     yield put(setData(null));
+    yield put(
+      setError({ level: "danger", message: "We had a problem in our servers" })
+    );
   }
   yield put(setIsListing(false));
 }
