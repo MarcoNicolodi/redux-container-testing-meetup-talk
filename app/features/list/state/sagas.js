@@ -18,7 +18,7 @@ function* list() {
   } catch (error) {
     yield put(setData(null));
     yield put(
-      setError({ level: "alert", message: "We had a problem in our servers" })
+      setError({ level: "danger", message: "We had a problem in our servers" })
     );
   }
   yield put(setIsListing(false));

@@ -31,7 +31,7 @@ export class List extends React.Component {
     if (isLoading) {
       render = <Loader />;
     } else if (error) {
-      render = <Alert type={error.level}> {error.message} </Alert>;
+      render = <Alert level={error.level}> {error.message} </Alert>;
     } else if (documents) {
       render = <DataTable data={documents} />;
     }

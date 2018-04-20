@@ -7,7 +7,10 @@ import { mount } from "enzyme";
 import List from "./index";
 import createStore from "../../lib/createStore";
 import { initialState } from "./state/ducks";
-import mockResponse from "../../../__mocks__/apiClient";
+import mockResponse, {
+  page2documents,
+  page3documents
+} from "../../../__mocks__/apiClient";
 
 function flushAllPromises() {
   return new Promise(resolve => setImmediate(resolve));
@@ -27,16 +30,29 @@ describe("Documents listing feature integration tests", () => {
 
   const axiosMock = new MockAdapter(axios);
 
+  axiosMock
+    .onGet(
+      "https://qualyteamdoc.azurewebsites.net/api/documents/?page=1&status=1"
+    )
+    .reply(200, mockResponse);
+
+  axiosMock
+    .onGet(
+      "https://qualyteamdoc.azurewebsites.net/api/documents/?page=2&status=1"
+    )
+    .reply(200, page2documents);
+
+  axiosMock
+    .onGet(
+      "https://qualyteamdoc.azurewebsites.net/api/documents/?page=3&status=1"
+    )
+    .reply(200, page3documents);
+
   beforeEach(() => {});
 
   afterEach(() => {});
 
   describe("Table rendering", () => {
-    axiosMock
-      .onGet(
-        "https://qualyteamdoc.azurewebsites.net/api/documents/?page=1&status=1"
-      )
-      .reply(200, mockResponse);
     const wrapper = createWrapper(initialStore);
 
     it("should render datatable if api call returns data", async () => {
@@ -56,6 +72,7 @@ describe("Documents listing feature integration tests", () => {
         const firstRow = datatable.find("Row").at(0);
         const codeColIndex = 0;
         const titleColIndex = 1;
+        const processColIndex = 2;
         expect(
           firstRow
             .find("td")
@@ -69,6 +86,63 @@ describe("Documents listing feature integration tests", () => {
             .at(titleColIndex)
             .text()
         ).toEqual("title 1");
+
+        expect(
+          firstRow
+            .find("td")
+            .at(processColIndex)
+            .text()
+        ).toEqual("process name 1");
+      });
+    });
+
+    it("should render page 2 documents when next button is clicked", async () => {
+      await flushAllPromises().then(async () => {
+        wrapper.update();
+        const codeColIndex = 0;
+        wrapper.find("#pagination-next-button").simulate("click");
+        await flushAllPromises().then(() => {
+          wrapper.update();
+          wrapper.instance().forceUpdate();
+          const datatable = wrapper.find("DataTable");
+          const firstRow = datatable.find("Row").at(0);
+          expect(
+            firstRow
+              .find("td")
+              .at(codeColIndex)
+              .text()
+          ).toEqual("page 2 code");
+          expect(wrapper.find("input").props().value).toEqual(2);
+        });
+      });
+    });
+
+    it("should jump to page if pagination input is filled", async () => {
+      await flushAllPromises().then(async () => {
+        wrapper.update();
+        const input = wrapper.find("input");
+
+        input.simulate("keyup", {
+          target: {
+            value: 3
+          },
+          keyCode: 13
+        });
+
+        wrapper.update();
+        wrapper.instance().forceUpdate();
+        expect(wrapper.find("input").props().value).toEqual(3);
+      });
+    });
+
+    it("should render error component if api returns error", async () => {
+      axiosMock.reset();
+      axiosMock.onGet().reply(500);
+      const wrapper2 = createWrapper(initialStore);
+      await flushAllPromises().then(() => {
+        wrapper2.update();
+        expect(wrapper2.find("Alert")).toHaveLength(1);
+        expect(wrapper2.find("Datatable")).toHaveLength(0);
       });
     });
   });

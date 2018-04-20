@@ -281,8 +281,8 @@ export const documents = [
   },
   {
     id: 4798,
-    title: "Processo de desenvolvimento",
-    code: "0001",
+    title: "page 3 title",
+    code: "page 3 code",
     status: 1,
     process: {
       id: 1,
@@ -316,12 +316,12 @@ export const documents = [
   },
   {
     id: 4819,
-    title: "BATATA",
-    code: "DD0001",
+    title: "page 2 title",
+    code: "page 2 code",
     status: 1,
     process: {
       id: 1,
-      name: "Batata"
+      name: "page 2 process"
     },
     category: {
       id: 22,
@@ -354,4 +354,14 @@ export const documents = [
 export default {
   totalPages: 3,
   items: documents
+};
+
+export const page2documents = {
+  totalPages: 3,
+  items: [documents[documents.length - 1]]
+};
+
+export const page3documents = {
+  totalPages: 3,
+  items: [documents[documents.length - 2]]
 };
