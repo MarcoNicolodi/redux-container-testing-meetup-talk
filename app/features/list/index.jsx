@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Container, Row } from "reactstrap";
 import Pagination from "../../components/pagination";
 import Loader from "../../components/loader";
+import NoResults from "../../components/no-results";
 import {
   fetchAsync,
   setPage,
@@ -32,8 +33,10 @@ export class List extends React.Component {
       render = <Loader />;
     } else if (error) {
       render = <Alert level={error.level}> {error.message} </Alert>;
-    } else if (documents) {
+    } else if (Array.isArray(documents) && documents.length > 0) {
       render = <DataTable data={documents} />;
+    } else {
+      render = <NoResults />;
     }
 
     return (
