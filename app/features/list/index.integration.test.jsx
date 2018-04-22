@@ -128,7 +128,7 @@ describe("Documents listing feature integration tests", () => {
     });
   });
 
-  it("should jump to page if pagination input is filled", async () => {
+  fit("should jump to page if pagination input is filled", async () => {
     axiosMock
       .onGet(
         "https://qualyteamdoc.azurewebsites.net/api/documents/?page=3&status=1"
@@ -148,7 +148,6 @@ describe("Documents listing feature integration tests", () => {
       });
 
       wrapper.update();
-      wrapper.instance().forceUpdate();
       expect(wrapper.find("input").props().value).toEqual(3);
     });
   });

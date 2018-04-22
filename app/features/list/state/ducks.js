@@ -1,3 +1,5 @@
+import mapper from "../lib/document-to-view-model";
+
 export const FETCH_ASYNC = "@@documents/FETCH_ASYNC";
 export const SET_DATA = "@@documents/SET_DATA";
 export const SET_IS_LISTING = "@@documents/SET_IS_LISTING";
@@ -25,16 +27,10 @@ export const initialState = {
 };
 
 export const documentSelector = state =>
-  state.document.list
-    ? state.document.list.items.map(item => ({
-        row: {
-          Code: item.code,
-          Title: item.title,
-          Process: item.process.name,
-          Category: item.category.name
-        }
-      }))
-    : null;
+  state.document.list ? state.document.list.items.map(mapper) : null;
+
+export const totalPagesSelector = state =>
+  state.document.list && state.document.list.totalPages;
 
 export const isLoadingSelector = state => state.document.isListing;
 
