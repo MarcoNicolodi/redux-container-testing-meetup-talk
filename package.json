@@ -1,19 +1,19 @@
 {
   "name": "react-webpack-babel",
   "version": "1.0.0",
-  "description": "starting boilerplate configured with react, babel and webpack2",
+  "description":
+    "starting boilerplate configured with react, babel and webpack2",
   "main": "index.js",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "start": "webpack-dev-server",
-    "eslint": "./node_modules/.bin/eslint"
+    "eslint": "./node_modules/.bin/eslint",
+    "cypress:open": "./node_modules/.bin/cypress open"
   },
   "jest": {
-    "setupFiles": [
-      "./jestsetup.js"
-    ],
+    "setupFiles": ["./jestsetup.js"],
     "moduleNameMapper": {
       "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
     }
@@ -22,13 +22,7 @@
     "type": "git",
     "url": "git+ssh://git@github.com/marconicolodi/react-webpack-babel.git"
   },
-  "keywords": [
-    "react",
-    "reactjs",
-    "babel",
-    "webpack2",
-    "boilerplate"
-  ],
+  "keywords": ["react", "reactjs", "babel", "webpack2", "boilerplate"],
   "author": "Marco Nicolodi",
   "license": "ISC",
   "bugs": {
@@ -42,6 +36,7 @@
     "bootstrap": "^4.0.0",
     "classnames": "^2.2.5",
     "css-loader": "^0.28.11",
+    "cypress": "^2.1.0",
     "nock": "^9.2.3",
     "raf": "^3.4.0",
     "rc-pagination": "^1.16.1",
@@ -69,6 +64,7 @@
     "eslint": "^4.18.2",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-cypress": "^2.0.1",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",

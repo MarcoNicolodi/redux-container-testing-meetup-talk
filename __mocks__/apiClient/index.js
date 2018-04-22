@@ -365,3 +365,8 @@ export const page3documents = {
   totalPages: 3,
   items: [documents[documents.length - 2]]
 };
+
+export const noResults = {
+  totalPages: 0,
+  items: []
+};
