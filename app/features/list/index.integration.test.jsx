@@ -128,7 +128,13 @@ describe("Documents listing feature integration tests", () => {
     });
   });
 
-  fit("should jump to page if pagination input is filled", async () => {
+  it("should jump to page if pagination input is filled", async () => {
+    axiosMock
+      .onGet(
+        "https://qualyteamdoc.azurewebsites.net/api/documents/?page=1&status=1"
+      )
+      .reply(200, mockResponse);
+
     axiosMock
       .onGet(
         "https://qualyteamdoc.azurewebsites.net/api/documents/?page=3&status=1"
@@ -146,9 +152,21 @@ describe("Documents listing feature integration tests", () => {
         },
         keyCode: 13
       });
+      await flushAllPromises().then(async () => {
+        wrapper.update();
+        wrapper.instance().forceUpdate();
+        const datatable = wrapper.find("DataTable");
+        const firstRow = datatable.find("Row").at(0);
+        const codeColIndex = 0;
+        expect(
+          firstRow
+            .find("td")
+            .at(codeColIndex)
+            .text()
+        ).toEqual("page 3 code");
 
-      wrapper.update();
-      expect(wrapper.find("input").props().value).toEqual(3);
+        expect(wrapper.find("input").props().value).toEqual(3);
+      });
     });
   });
 
