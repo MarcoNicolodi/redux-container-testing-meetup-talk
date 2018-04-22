@@ -10,10 +10,10 @@ import {
   documentSelector,
   isLoadingSelector,
   currentPageSelector,
-  errorSelector
+  errorSelector,
+  totalPagesSelector
 } from "./state/ducks";
 import DataTable from "../../components/data-table";
-import ConditionalRender from "../../components/conditional-render";
 import Alert from "../../components/alert";
 
 export class List extends React.Component {
@@ -44,29 +44,13 @@ export class List extends React.Component {
         <Row>
           <h1> Document list </h1>
         </Row>
-        <Row>
-          {render}
-
-          {/* <ConditionalRender
-            render={() => <Loader />}
-            condition={isLoading}
-            fallback={() => (
-              <ConditionalRender
-                render={() => <DataTable data={documents} />}
-                condition={documents !== null}
-                fallback={() => (
-                  <Alert level={error.level}> {error.message} </Alert>
-                )}
-              />
-            )}
-          /> */}
-        </Row>
+        <Row>{render}</Row>
         <Row>
           <Pagination
             onChange={page => this.handlePageChange(page)}
             className="pagination"
             current={this.props.currentPage}
-            total={10}
+            total={this.props.totalPages}
             simple
             pageSize={1}
           />
@@ -80,7 +64,8 @@ const mapStateToProps = state => ({
   documents: documentSelector(state),
   isLoading: isLoadingSelector(state),
   error: errorSelector(state),
-  currentPage: currentPageSelector(state)
+  currentPage: currentPageSelector(state),
+  totalPages: totalPagesSelector(state)
 });
 
 const mapDispatchToProps = dispatch => ({
