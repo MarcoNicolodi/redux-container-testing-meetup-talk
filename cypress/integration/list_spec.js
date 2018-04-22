@@ -1,4 +1,4 @@
-describe("first test", () => {
+describe("As a quality manager, i want to list the company documents, to ensure the processes are documented", () => {
   it("GIVEN that im on listing page, WHEN i visit the page, THEN i should see first page documents", () => {
     cy.visit("localhost:8080");
     // assert input is in page 1
@@ -24,5 +24,6 @@ describe("first test", () => {
       .type("3")
       .type("{enter}")
       .should("have.value", "3");
+    cy.get("table").contains("PD0001");
   });
 });
