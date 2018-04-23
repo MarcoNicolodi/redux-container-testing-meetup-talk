@@ -351,6 +351,79 @@ export const documents = [
   }
 ];
 
+const filteredDocuments = [
+  {
+    id: 4749,
+    title: "vendas 1",
+    code: "YETETTE",
+    status: 1,
+    process: {
+      id: 1,
+      name: "Batata"
+    },
+    category: {
+      id: 669,
+      initials: "asdjkaosfsdgh",
+      name: "apsfkjasçl111111",
+      companyId: 1
+    },
+    revisions: [
+      {
+        id: 397,
+        publishDate: "2018-03-16T00:00:00",
+        documentId: 4749,
+        code: 1,
+        file: {
+          id: 397,
+          name: "Teste Técnico - Cadastro de Documentos.pdf",
+          path: "doc/bc243ffb-6caf-44a7-a968-3d8376ce1d88.pdf"
+        },
+        changes: "",
+        requester: {
+          id: 2,
+          name: "a",
+          email: "a"
+        }
+      }
+    ]
+  },
+  {
+    id: 4770,
+    title: "vendas 2",
+    code: "asfasfasfasccqw ROLA",
+    status: 1,
+    process: {
+      id: 2,
+      name: "Q&A"
+    },
+    category: {
+      id: 20,
+      initials: "BB2",
+      name: "Categoria B21",
+      companyId: 1
+    },
+    revisions: [
+      {
+        id: 418,
+        publishDate: "2018-03-19T00:00:00",
+        documentId: 4770,
+        code: 1,
+        file: {
+          id: 418,
+          name: "docker.pdf",
+          path: "doc/8ac6fa6e-34d1-4da3-850f-749ab5630b92.pdf"
+        },
+        changes: "",
+        requester: {
+          id: 2,
+          name: "a",
+          email: "a"
+        }
+      }
+    ]
+  }
+];
+
 export default {
   totalPages: 3,
   items: documents
@@ -364,6 +437,11 @@ export const page2documents = {
 export const page3documents = {
   totalPages: 3,
   items: [documents[documents.length - 2]]
+};
+
+export const filteredResponse = {
+  totalPages: 1,
+  items: filteredDocuments
 };
 
 export const noResults = {

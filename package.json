@@ -1,8 +1,7 @@
 {
   "name": "react-webpack-babel",
   "version": "1.0.0",
-  "description":
-    "starting boilerplate configured with react, babel and webpack2",
+  "description": "starting boilerplate configured with react, babel and webpack2",
   "main": "index.js",
   "scripts": {
     "test": "jest",
@@ -13,7 +12,9 @@
     "cypress:open": "./node_modules/.bin/cypress open"
   },
   "jest": {
-    "setupFiles": ["./jestsetup.js"],
+    "setupFiles": [
+      "./jestsetup.js"
+    ],
     "moduleNameMapper": {
       "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
     }
@@ -22,7 +23,13 @@
     "type": "git",
     "url": "git+ssh://git@github.com/marconicolodi/react-webpack-babel.git"
   },
-  "keywords": ["react", "reactjs", "babel", "webpack2", "boilerplate"],
+  "keywords": [
+    "react",
+    "reactjs",
+    "babel",
+    "webpack2",
+    "boilerplate"
+  ],
   "author": "Marco Nicolodi",
   "license": "ISC",
   "bugs": {
@@ -30,6 +37,9 @@
   },
   "homepage": "https://github.com/marconicolodi/react-webpack-babel#readme",
   "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.5",
+    "@fortawesome/fontawesome-free-solid": "^5.0.10",
+    "@fortawesome/react-fontawesome": "0.0.18",
     "axios": "^0.18.0",
     "axios-mock-adapter": "^1.14.1",
     "babel-polyfill": "^6.26.0",
@@ -46,7 +56,7 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-transition-group": "^2.2.1",
-    "reactstrap": "^4.8.0",
+    "reactstrap": "^5.0.0-beta.3",
     "redux": "^3.7.2",
     "redux-saga": "^0.16.0",
     "style-loader": "^0.20.3"

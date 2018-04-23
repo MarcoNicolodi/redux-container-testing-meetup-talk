@@ -12,7 +12,7 @@ const fetch = params =>
     .get(
       `https://qualyteamdoc.azurewebsites.net/api/documents/?page=${
         params.page
-      }&status=1`,
+      }&status=1${params.filter ? `&document=${params.filter}` : ""}`,
       options
     )
     .then(response => response.data);

@@ -2,6 +2,7 @@ import { select, put, call, takeLatest } from "redux-saga/effects";
 import {
   setIsListing,
   currentPageSelector,
+  filterSelector,
   setData,
   setError,
   FETCH_ASYNC
@@ -10,7 +11,8 @@ import fetchDocuments from "../api/apiClient";
 
 function* list() {
   const page = yield select(currentPageSelector);
-  const params = { page };
+  const filter = yield select(filterSelector);
+  const params = { page, filter };
   yield put(setIsListing(true));
   try {
     const apiResponse = yield call(fetchDocuments, params);

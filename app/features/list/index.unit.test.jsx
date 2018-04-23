@@ -6,6 +6,7 @@ import mapper from "./lib/document-to-view-model";
 
 describe("List Container unit tests", () => {
   const setPageMock = jest.fn();
+  const setFilterMock = jest.fn();
   const fetchMock = jest.fn();
 
   const defaultProps = {
@@ -15,6 +16,7 @@ describe("List Container unit tests", () => {
     error: null,
     documents: documents.map(mapper),
     setPage: setPageMock,
+    setFilter: setFilterMock,
     fetch: fetchMock
   };
 
@@ -64,6 +66,14 @@ describe("List Container unit tests", () => {
       expect(fetchMock).toHaveBeenCalledTimes(1);
       expect(setPageMock).toHaveBeenCalledWith(3);
     });
+
+    it("should set filter and list when filterSubmit handler is called", () => {
+      const wrapper = wrapperFactory(defaultProps);
+      fetchMock.mockClear();
+      wrapper.instance().handleFilterSubmit("vendas");
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      expect(setFilterMock).toHaveBeenCalledWith("vendas");
+    });
   });
 
   describe("DataTable", () => {
@@ -96,6 +106,20 @@ describe("List Container unit tests", () => {
         .props()
         .onChange(expectedPage);
       expect(handlerMock).toHaveBeenCalledWith(expectedPage);
+    });
+  });
+
+  describe("Filter", () => {
+    it("Should call handle filter submit event", () => {
+      const wrapper = wrapperFactory(defaultProps);
+      const handlerMock = jest.fn();
+      wrapper.instance().handleFilterSubmit = handlerMock;
+      const expectedFilter = "vendas";
+      wrapper
+        .find("Filter")
+        .props()
+        .onSubmit(expectedFilter);
+      expect(handlerMock).toHaveBeenCalledWith(expectedFilter);
     });
   });
 });

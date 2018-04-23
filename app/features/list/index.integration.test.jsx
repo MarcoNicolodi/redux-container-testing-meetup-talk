@@ -9,7 +9,8 @@ import { initialState } from "./state/ducks";
 import mockResponse, {
   page2documents,
   page3documents,
-  noResults
+  noResults,
+  filteredResponse
 } from "../../../__mocks__/apiClient";
 
 function flushAllPromises() {
@@ -123,7 +124,7 @@ describe("Documents listing feature integration tests", () => {
             .at(codeColIndex)
             .text()
         ).toEqual("page 2 code");
-        expect(wrapper.find("input").props().value).toEqual(2);
+        expect(wrapper.find(".rc-pagination input").props().value).toEqual(2);
       });
     });
   });
@@ -144,7 +145,7 @@ describe("Documents listing feature integration tests", () => {
     const wrapper = createWrapper(initialStore);
     await flushAllPromises().then(async () => {
       wrapper.update();
-      const input = wrapper.find("input");
+      const input = wrapper.find(".rc-pagination input");
 
       input.simulate("keyup", {
         target: {
@@ -165,7 +166,7 @@ describe("Documents listing feature integration tests", () => {
             .text()
         ).toEqual("page 3 code");
 
-        expect(wrapper.find("input").props().value).toEqual(3);
+        expect(wrapper.find(".rc-pagination input").props().value).toEqual(3);
       });
     });
   });
@@ -186,7 +187,54 @@ describe("Documents listing feature integration tests", () => {
     await flushAllPromises().then(() => {
       wrapper.update();
       expect(wrapper.find("NoResults")).toHaveLength(1);
-      expect(wrapper.find("Datatable")).toHaveLength(0);
+      expect(wrapper.find("DataTable")).toHaveLength(0);
+    });
+  });
+
+  it("should filter results when filter is submited", async () => {
+    axiosMock
+      .onGet(
+        "https://qualyteamdoc.azurewebsites.net/api/documents/?page=1&status=1"
+      )
+      .reply(200, mockResponse);
+
+    axiosMock
+      .onGet(
+        "https://qualyteamdoc.azurewebsites.net/api/documents/?page=1&status=1&document=vendas"
+      )
+      .reply(200, filteredResponse);
+    const wrapper = createWrapper(initialStore);
+    await flushAllPromises().then(async () => {
+      wrapper.update();
+      wrapper.find("input#filter-input").simulate("keyUp", {
+        target: {
+          value: "vendas"
+        },
+        keyCode: 13
+      });
+      await flushAllPromises().then(() => {
+        wrapper.update();
+        wrapper.instance().forceUpdate();
+        expect(
+          wrapper
+            .find("DataTable")
+            .find("Row")
+            .at(0)
+            .find("td")
+            .at(1)
+            .text()
+        ).toEqual("vendas 1");
+
+        expect(
+          wrapper
+            .find("DataTable")
+            .find("Row")
+            .at(1)
+            .find("td")
+            .at(1)
+            .text()
+        ).toEqual("vendas 2");
+      });
     });
   });
 });
