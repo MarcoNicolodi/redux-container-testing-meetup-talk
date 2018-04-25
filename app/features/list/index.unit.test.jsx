@@ -29,22 +29,18 @@ describe("List Container unit tests", () => {
 
   describe("Conditional Rendering", () => {
     it("should render datatable if documents props is passed", () => {
+      // TODO 1
       const wrapper = wrapperFactory(defaultProps);
       expect(wrapper.find("DataTable")).toHaveLength(1);
     });
 
     it("should render loader component if isLoding props is true", () => {
-      const wrapper = wrapperFactory({ ...defaultProps, isLoading: true });
-      expect(wrapper.find("Loader")).toHaveLength(1);
+      // TODO 2
     });
 
     it("should render alert component if error props is not null", () => {
-      const wrapper = wrapperFactory({
-        ...defaultProps,
-        error: { level: "danger", message: "error" }
-      });
-
-      expect(wrapper.find("Alert")).toHaveLength(1);
+      // TODO 3
+      // error: { level: "danger", message: "error" }
     });
 
     it("should render no results component if documents props is an empty array", () => {
@@ -62,17 +58,13 @@ describe("List Container unit tests", () => {
     it("should set page and list when changePage handler is called", () => {
       const wrapper = wrapperFactory(defaultProps);
       fetchMock.mockClear();
-      wrapper.instance().handlePageChange(3);
-      expect(fetchMock).toHaveBeenCalledTimes(1);
-      expect(setPageMock).toHaveBeenCalledWith(3);
+      // TODO 4
     });
 
     it("should set filter and list when filterSubmit handler is called", () => {
       const wrapper = wrapperFactory(defaultProps);
       fetchMock.mockClear();
-      wrapper.instance().handleFilterSubmit("vendas");
-      expect(fetchMock).toHaveBeenCalledTimes(1);
-      expect(setFilterMock).toHaveBeenCalledWith("vendas");
+      // TODO 5
     });
   });
 
@@ -88,24 +80,13 @@ describe("List Container unit tests", () => {
   describe("Pagination", () => {
     it("should pass paging information to Pagination", () => {
       const wrapper = wrapperFactory(defaultProps);
-      expect(wrapper.find("Pagination").props().current).toEqual(
-        defaultProps.currentPage
-      );
-      expect(wrapper.find("Pagination").props().total).toEqual(
-        defaultProps.totalPages
-      );
+      // TODO 6
     });
 
     it("should handle pagination change event", () => {
       const wrapper = wrapperFactory(defaultProps);
       const handlerMock = jest.fn();
-      wrapper.instance().handlePageChange = handlerMock;
-      const expectedPage = 5;
-      wrapper
-        .find("Pagination")
-        .props()
-        .onChange(expectedPage);
-      expect(handlerMock).toHaveBeenCalledWith(expectedPage);
+      // TODO 7
     });
   });
 

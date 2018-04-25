@@ -23,7 +23,7 @@ describe("Documents listing feature integration tests", () => {
     document: { ...initialState }
   };
 
-  const createWrapper = store =>
+  const wrapperFactory = store =>
     mount(
       <Provider store={store}>
         <List />
@@ -47,7 +47,7 @@ describe("Documents listing feature integration tests", () => {
       )
       .reply(200, mockResponse);
 
-    const wrapper = createWrapper(initialStore);
+    const wrapper = wrapperFactory(initialStore);
     await flushAllPromises().then(() => {
       // due to https://github.com/airbnb/enzyme/issues/346
       wrapper.update();
@@ -64,7 +64,7 @@ describe("Documents listing feature integration tests", () => {
         "https://qualyteamdoc.azurewebsites.net/api/documents/?page=1&status=1"
       )
       .reply(200, mockResponse);
-    const wrapper = createWrapper(initialStore);
+    const wrapper = wrapperFactory(initialStore);
     await flushAllPromises().then(() => {
       wrapper.update();
       const datatable = wrapper.find("DataTable");
@@ -96,6 +96,7 @@ describe("Documents listing feature integration tests", () => {
   });
 
   it("should render page 2 documents when next button is clicked", async () => {
+    // TODO 8
     axiosMock
       .onGet(
         "https://qualyteamdoc.azurewebsites.net/api/documents/?page=1&status=1"
@@ -108,7 +109,19 @@ describe("Documents listing feature integration tests", () => {
       )
       .reply(200, page2documents);
 
-    const wrapper = createWrapper(initialStore);
+    // create wrapper
+
+    // flush
+    // update wrapper
+    // click #pagination-next-button
+    // flush again
+    // update wrapper
+    // find DataTable
+    // find first(0) td of first(0) Row of DataTable
+    // expect text to be "page 2 code"
+    // assert .rc-pagination input is equal to 2
+
+    const wrapper = wrapperFactory(initialStore);
     await flushAllPromises().then(async () => {
       wrapper.update();
       const codeColIndex = 0;
@@ -142,7 +155,7 @@ describe("Documents listing feature integration tests", () => {
       )
       .reply(200, page3documents);
 
-    const wrapper = createWrapper(initialStore);
+    const wrapper = wrapperFactory(initialStore);
     await flushAllPromises().then(async () => {
       wrapper.update();
       const input = wrapper.find(".rc-pagination input");
@@ -172,10 +185,13 @@ describe("Documents listing feature integration tests", () => {
   });
 
   it("should render error component if api returns error", async () => {
-    axiosMock.onGet().reply(500);
-    const wrapper = createWrapper(initialStore);
+    // TODO 9
+    // mock a 500 reply at any axiosMock call
+    const wrapper = wrapperFactory(initialStore);
     await flushAllPromises().then(() => {
       wrapper.update();
+      // assert that Alert was rendered
+      // assert that DataTable wasnt
       expect(wrapper.find("Alert")).toHaveLength(1);
       expect(wrapper.find("Datatable")).toHaveLength(0);
     });
@@ -183,7 +199,7 @@ describe("Documents listing feature integration tests", () => {
 
   it("should render no results components if api returns no results", async () => {
     axiosMock.onGet().reply(200, noResults);
-    const wrapper = createWrapper(initialStore);
+    const wrapper = wrapperFactory(initialStore);
     await flushAllPromises().then(() => {
       wrapper.update();
       expect(wrapper.find("NoResults")).toHaveLength(1);
@@ -191,7 +207,7 @@ describe("Documents listing feature integration tests", () => {
     });
   });
 
-  it("should filter results when filter is submited", async () => {
+  it("should filter results when filter is submited and api returns results", async () => {
     axiosMock
       .onGet(
         "https://qualyteamdoc.azurewebsites.net/api/documents/?page=1&status=1"
@@ -203,9 +219,10 @@ describe("Documents listing feature integration tests", () => {
         "https://qualyteamdoc.azurewebsites.net/api/documents/?page=1&status=1&document=vendas"
       )
       .reply(200, filteredResponse);
-    const wrapper = createWrapper(initialStore);
+    const wrapper = wrapperFactory(initialStore);
     await flushAllPromises().then(async () => {
       wrapper.update();
+      // "fill" with vendas simulate enter(13) keyUp event on input#filter-input
       wrapper.find("input#filter-input").simulate("keyUp", {
         target: {
           value: "vendas"
@@ -214,7 +231,8 @@ describe("Documents listing feature integration tests", () => {
       });
       await flushAllPromises().then(() => {
         wrapper.update();
-        wrapper.instance().forceUpdate();
+        // find second td of first Row of DataTable
+        // assert that its text is "vendas 1"
         expect(
           wrapper
             .find("DataTable")
@@ -224,7 +242,8 @@ describe("Documents listing feature integration tests", () => {
             .at(1)
             .text()
         ).toEqual("vendas 1");
-
+        // find second td of second Row of DataTable
+        // assert that its text is "vendas 2"
         expect(
           wrapper
             .find("DataTable")
