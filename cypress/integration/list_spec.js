@@ -15,15 +15,11 @@ describe("As a quality manager, i want to list the company documents, to ensure 
   });
 
   it("GIVEN that im on listing page, WHEN i fill the page input with page 3 and press enter, THEN i should see third page documents", () => {
-    cy.visit("localhost:8080");
-    cy.get("table");
-    cy
-      .get("li.rc-pagination-simple-pager input")
-      .type("{backspace}")
-      .type("3")
-      .type("{enter}")
-      .should("have.value", "3");
-    cy.get("table").contains("PD0001");
+    // TODO 10
+    // visit
+    // wait for table li.rc-pagination-simple-pager input
+    // type backspace 3 enter
+    // table contains PD0001
   });
 
   it("GIVEN that im on listing page, WHEN am in page 2 and i press the back button, THEN i should see page 1 documents", () => {
@@ -37,24 +33,20 @@ describe("As a quality manager, i want to list the company documents, to ensure 
   });
 
   it("GIVEN that im on listing page, WHEN i filter a document that exists, THEN i should see filtered documents", () => {
-    cy.visit("localhost:8080");
-    cy.get("table");
-    cy
-      .get("input#filter-input")
-      .type("contrato")
-      .type("{enter}");
-    cy.get("table").contains("Contrato de Prestação de Serviços");
-    cy.get("table").contains("Aditivo ao Contrato de Prestação de Serviços");
+    // TODO 11
+    // visit
+    // wait for load
+    // type contrato in input#filter-input and type enter
+    // table contains Contrato de Prestação de Serviços
+    // table contains Aditivo ao Contrato de Prestação de Serviços
   });
 
   it("GIVEN that im on listing page, WHEN i filter a document that doesnt exist, THEN i should see a no results alert", () => {
-    cy.visit("localhost:8080");
-    cy.get("table");
-    cy
-      .get("input#filter-input")
-      .type("non existing title")
-      .type("{enter}");
-    cy.contains("No results found");
+    // TODO 12
+    // visit
+    // waits
+    // fill with no existing file
+    // contains No results found
   });
 
   it("GIVEN that im on listing page, WHEN the api responds with error, THEN i should see an error alert", () => {
