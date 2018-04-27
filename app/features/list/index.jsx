@@ -24,6 +24,16 @@ export class List extends React.Component {
     this.props.fetch();
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { location } = this.props;
+    const { location: nextLocation } = nextProps;
+
+    if (location.key !== nextLocation.key) {
+      this.props.setPage(1);
+      this.props.fetch();
+    }
+  }
+
   handlePageChange(page) {
     this.props.setPage(page);
     this.props.fetch();
