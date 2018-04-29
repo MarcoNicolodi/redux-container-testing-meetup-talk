@@ -26,7 +26,7 @@ describe("Documents listing feature integration tests", () => {
   const createWrapper = store =>
     mount(
       <Provider store={store}>
-        <List />
+        <List location={{ key: "" }} />
       </Provider>
     );
 

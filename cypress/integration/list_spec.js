@@ -1,13 +1,18 @@
 describe("As a quality manager, i want to list the company documents, to ensure the processes are documented", () => {
-  it("GIVEN that im on listing page, WHEN i visit the page, THEN i should see first page documents", () => {
+  before(() => {
     cy.visit("localhost:8080");
+  });
+
+  it("GIVEN that im on listing page, WHEN i visit the page, THEN i should see first page documents", () => {
+    cy.get("#home-link").click();
+    cy.get("table");
     cy.get("li.rc-pagination-simple-pager input").should("have.value", "1");
     cy.contains("Document list");
     cy.contains("PO0003");
   });
 
   it("GIVEN that im on listin page, WHEN i click the next button, THEN i should see second page documents", () => {
-    cy.visit("localhost:8080");
+    cy.get("#home-link").click();
     cy.get("table");
     cy.get("button#pagination-next-button").click();
     cy.get("li.rc-pagination-simple-pager input").should("have.value", "2");
@@ -15,7 +20,7 @@ describe("As a quality manager, i want to list the company documents, to ensure 
   });
 
   it("GIVEN that im on listing page, WHEN i fill the page input with page 3 and press enter, THEN i should see third page documents", () => {
-    cy.visit("localhost:8080");
+    cy.get("#home-link").click();
     cy.get("table");
     cy
       .get("li.rc-pagination-simple-pager input")
@@ -27,7 +32,7 @@ describe("As a quality manager, i want to list the company documents, to ensure 
   });
 
   it("GIVEN that im on listing page, WHEN am in page 2 and i press the back button, THEN i should see page 1 documents", () => {
-    cy.visit("localhost:8080");
+    cy.get("#home-link").click();
     cy.get("table");
     cy.get("button#pagination-next-button").click();
     cy.get("li.rc-pagination-simple-pager input").should("have.value", "2");
@@ -37,7 +42,7 @@ describe("As a quality manager, i want to list the company documents, to ensure 
   });
 
   it("GIVEN that im on listing page, WHEN i filter a document that exists, THEN i should see filtered documents", () => {
-    cy.visit("localhost:8080");
+    cy.get("#home-link").click();
     cy.get("table");
     cy
       .get("input#filter-input")
@@ -48,13 +53,21 @@ describe("As a quality manager, i want to list the company documents, to ensure 
   });
 
   it("GIVEN that im on listing page, WHEN i filter a document that doesnt exist, THEN i should see a no results alert", () => {
-    cy.visit("localhost:8080");
+    cy.get("#home-link").click();
     cy.get("table");
     cy
       .get("input#filter-input")
+      .clear()
       .type("non existing title")
       .type("{enter}");
     cy.contains("No results found");
+  });
+
+  it("GIVEN that im on listing page, WHEN im using a mobile devide, THEN i should see the navbar collapse into a hamburger menu", () => {
+    cy.viewport("iphone-6+");
+    cy.contains("github.com/MarcoNicolodi").not();
+    cy.get(".navbar-toggler").click();
+    cy.contains("github.com/MarcoNicolodi");
   });
 
   it("GIVEN that im on listing page, WHEN the api responds with error, THEN i should see an error alert", () => {
